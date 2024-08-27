@@ -163,6 +163,11 @@ function(add_core platform core_name)
   elseif(EXISTS "cores/${platform}/libretro/Makefile")
     set(makefile Makefile)
     set(subdir libretro)
+  elseif(EXISTS "cores/${platform}/CMakeLists.txt")
+	execute_process(
+      COMMAND ${CMAKE_COMMAND} .
+      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/cores/${platform}"
+    )
   else()
     message(FATAL_ERROR "Could not find Makefile.")
   endif()
@@ -243,6 +248,7 @@ add_core(gba mgba)
 add_core(pce mednafen_pce_fast)
 add_core(32x picodrive)
 add_core(saturn mednafen_saturn)
+add_core(psx swanstation)
 
 set(CLEAN_CORES)
 

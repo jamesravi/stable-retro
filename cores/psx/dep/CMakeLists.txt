@@ -1,0 +1,15 @@
+add_subdirectory(glad)
+add_subdirectory(stb)
+add_subdirectory(zlib)
+add_subdirectory(zstd)
+add_subdirectory(lzma)
+add_subdirectory(libchdr)
+add_subdirectory(xxhash)
+add_subdirectory(glslang)
+add_subdirectory(vulkan-loader)
+add_subdirectory(libretro-common)
+
+if(${CPU_ARCH} STREQUAL "aarch32" OR ${CPU_ARCH} STREQUAL "aarch64")
+  add_subdirectory(vixl)
+endif()
+

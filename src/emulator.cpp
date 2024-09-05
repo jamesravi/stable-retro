@@ -311,9 +311,6 @@ void Emulator::fixScreenSize(const string& romName) {
 	} else if (!strcmp(systemInfo.library_name, "Mednafen PCE Fast")) {
 		m_avInfo.geometry.base_width = 256;
 		m_avInfo.geometry.base_height = 242;
-	} else if (!strcmp(systemInfo.library_name, "PCSX-ReARMed")) {
-		m_avInfo.geometry.base_width = 640;
-		m_avInfo.geometry.base_height = 480;
 	}
 }
 
@@ -376,6 +373,12 @@ bool Emulator::cbEnvironment(unsigned cmd, void* data) {
 			break;
 		}
 		return true;
+	case RETRO_ENVIRONMENT_SET_GEOMETRY: {
+		struct retro_game_geometry* var = reinterpret_cast<struct retro_game_geometry*>(data);
+		s_loadedEmulator->m_avInfo.geometry.base_width = var->base_width;
+		s_loadedEmulator->m_avInfo.geometry.base_height = var->base_height;
+		return true;
+	}
 	case RETRO_ENVIRONMENT_GET_VARIABLE: {
 		struct retro_variable* var = reinterpret_cast<struct retro_variable*>(data);
 		if (s_envVariables.count(string(var->key))) {
